@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.projectfinal.mapper.ProductMapper">
+    <resultMap id="productMap" type="com.qf.projectfinal.po.Product">
+        <id column="product_id" property="productId"></id>
+        <result column="product_name" property="productName"></result>
+        <result column="product_rate" property="productRate"></result>
+        <result column="product_date" property="productDate"></result>
+        <result column="product_img" property="productImg"></result>
+    </resultMap>
+
+    <sql id="productColumns">${alias}.product_id,${alias}.product_name,${alias}.product_rate,${alias}.product_date,${alias}.product_img</sql>
+
+    <select id="findAll" resultMap="productMap">
+        select
+        <include refid="productColumns"><property name="alias" value="pro"></property></include>
+        from
+        product pro
+    </select>
+
+    <select id="findProductById" resultMap="productMap">
+      select
+        <include refid="productColumns"><property name="alias" value="pro"></property></include>
+        from
+        product pro
+        where product_id=#{productId }
+    </select>
+</mapper>
